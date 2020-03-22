@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PanierController!{% endblock %}
+
+{% block body %}
+<h1> Voici votre panier <h1>
+
+{% if paniers is not empty %}{% endif %}
+<h2> Vous avez {{ paniers|length }} produit(s) dans votre panier <h2>
+
+<table border="1" class="table table-striped table-inverse"> 
+        <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>quantite</th>
+                    <th>Ajouté le :</th>
+                    <th>prix</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for mon_panier in paniers %}
+                    <tr>{{ mon_panier.produit_add.nom }} </tr>
+                    <tr>{{ mon_panier.quantite }}</tr>
+                    <tr>{{ mon_panier.date_ajout|date('d/m/Y à H:i:s') }}</tr>
+
+                    {% set total_prix = mon_panier.produit_add.prix + mon_panier.quantite %} <!-- Cumul (note * coeff) -->
+                    <tr>{{total_prix}} €</tr>
+                    
+                {% endfor %}
+
+{% endblock %}
